@@ -1,0 +1,16 @@
+{{ section.content | safe -}}
+		{% for page in section.pages %}
+		{% set_global link_after = not link_after | default(value=false) %}
+		<h2>{{ page.title }}</h2>
+		<div class="list">
+				{%- if link_after %}
+				{{ page.content | safe }}
+				{%- endif -%}
+				{% if page.extra.link %}
+				<a aria-label="external link" class="list_link" href="{{ page.extra.link }}" target="_blank" rel="noopener noreferrer">{{ section.extra.discover | default(value="Discover") }}</a>
+				{%- endif -%}
+				{% if not link_after %}
+				{{ page.content | safe -}}
+				{% endif %}
+		</div>
+		{%- endfor -%}
